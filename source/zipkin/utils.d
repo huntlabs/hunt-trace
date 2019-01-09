@@ -16,20 +16,24 @@ long usecs() @property
     return hnsecs / 10;
 }
 
+long msecs() @property
+{
+    return hnsecs / 10000;
+}
+
 int secs() @property
 {
     return cast(int)time(null);
 }
 
 //16bytes
-string LID() @property
+string ID() @property
 {
     ubyte[8] bs = nativeToBigEndian(hnsecs);   
     return toHexString!(LetterCase.lower)(bs.dup);
 }
 
-string ID() @property
+string LID() @property
 {
-    auto id = LID();
-    return id[8 .. $ - 1];
+    return ID ~ ID;
 }

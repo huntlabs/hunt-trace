@@ -1,9 +1,13 @@
-module test.http;
+module zipkin.v2api.httpclient;
 import std.net.curl;
 
 import hunt.logging;
 
-alias get = std.net.curl.get;
+//alias get = std.net.curl.get;
+
+enum CONTENT_PLAIN = "plain/text";
+enum CONTENT_JSON = "application/json";
+enum CONTENT_ENCODE = "application/x-www-form-urlencoded";
 
 
 bool get(string url  ,
@@ -38,12 +42,12 @@ bool get(string url  , out string result  ,string[string] in_headers = string[st
 bool post(string url , 
 string text ,
 out string result,
-string[string] in_headers = string[string].init ,
-string content_type = "plain/text"
+string content_type = CONTENT_PLAIN,
+string[string] in_headers = string[string].init 
 )
 {
    string[string] out_header;
-   return post(url , text,content_type, in_headers , out_header , result);
+   return post(url , text,content_type, in_headers , result, out_header);
 }
 
 
@@ -52,8 +56,9 @@ bool post(string url ,
 string text ,
 string content_type,
 string[string] in_headers , 
+out string result,
 out string[string] out_headers ,
-out string result)
+)
 {
     auto http = HTTP(url);
     import std.array;
@@ -76,10 +81,5 @@ out string result)
     return flag;
 }
 unittest{
-  /*  string text = `{"appid":"8100","token":"c8b32a850f2615f3a7c99b3f066fb153","type":1,"uid":"60000332"}`;
-    string[string] out_header;
-    string result;
-    post("http://member-test.ptdev.cn/child/children" , text ,"application/json" , out_header , result);
-    import kiss.logger;
-    logInfo(result);*/
+  
 }

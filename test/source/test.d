@@ -1,7 +1,6 @@
 module test.test;
 import zipkin;
 import core.thread;
-import test.http;
 import hunt.logging;
 
 ///             1
@@ -14,6 +13,7 @@ import hunt.logging;
 ///       |       |
 ///       4       5
 
+enum HOST = "http://10.1.11.34:9411/api/v2/spans";
 
 void test1()
 {
@@ -58,7 +58,7 @@ void test1()
     span4.name = "4";
     span4.kind = KindOfServer;
     Thread.sleep(dur!"msecs"(2100));
-    span4.end();
+    span4.finish();
     local = new EndPoint();
     local.serviceName = "passport";
     span4.localEndpoint = local;
@@ -76,9 +76,9 @@ void test1()
     local.serviceName = "tokenmanger";
     span5.localEndpoint = local;
     span5.addTag("test5" , "value5");
-    span5.end();
+    span5.finish();
 
-    span2.end();
+    span2.finish();
 
     auto span3 = new Span();
     span3.start();
@@ -91,19 +91,56 @@ void test1()
     local = new EndPoint();
     local.serviceName = "for-crm";
     span3.localEndpoint = local;
-    span3.end();
+    span3.finish();
 
-    span1.end();
+    span1.finish();
+
+    upload(HOST , span1,span2,span3,span4 , span5);
+    logInfo(TRACEID);
+}
+
+
+void test2()
+{
+    auto TRACEID = LID;
+
+    auto span1 = new Span();
+    span1.start();
+    span1.traceId = TRACEID;
+    span1.id = ID;
+    span1.name = "test1";
+    span1.kind = KindOfClient;
+    span1.start();
+    auto local = new EndPoint();
+    local.serviceName = "clientrequest";
+    span1.localEndpoint = local;
 
     string[string] in_header;
     string[string] out_header;
-    string result;
+    
+    auto span2 = new Span();
+    span2.traceId = TRACEID;
+    span2.id = span1.id;
+    span2.name = "test2";
+    span2.kind = KindOfServer;
+
+    local = new EndPoint();
+    local.serviceName = "serverresponse";
+    span2.localEndpoint = local;
+   
+    Thread.sleep(dur!"msecs"(500));
+    span2.start();
+    span2.addAnnotation("server recv");
+    span2.addTag("server" , "ok");
+    Thread.sleep(dur!"msecs"(500));
+    span2.finish();
+
+    upload(HOST , span2);
     logInfo(TRACEID);
-    post("http://10.1.11.34:9411/api/v2/spans" , "["~span1.toString()~"]" ,"application/json" , in_header , out_header , result);
-    logInfo(span1.toString);
-    post("http://10.1.11.34:9411/api/v2/spans" , "["~span2.toString()~"]" ,"application/json" , in_header , out_header , result);
-    post("http://10.1.11.34:9411/api/v2/spans" , "["~span3.toString()~"]" ,"application/json" , in_header , out_header , result);
-    post("http://10.1.11.34:9411/api/v2/spans" , "["~span4.toString()~"]" ,"application/json" , in_header, out_header , result);
-    post("http://10.1.11.34:9411/api/v2/spans" , "["~span5.toString()~"]" ,"application/json" , in_header,out_header , result);
+
+    span1.finish();
+    upload(HOST , span1);
+    
+
 }
 

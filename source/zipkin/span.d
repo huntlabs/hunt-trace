@@ -8,10 +8,7 @@ import hunt.util.serialize;
 
 
 
-enum KindOfClient = "CLIENT";
-enum KindOfServer = "SERVER";
-enum KindOfPRODUCER = "PRODUCER";
-enum KindOfCONSUMER = "CONSUMER";
+
 
 
 class Span
@@ -59,7 +56,7 @@ class Span
             this.timestamp = usecs;
     }
 
-    void end(long timestamp = 0)
+    void finish(long timestamp = 0)
     {
         if(timestamp != 0)
             this.duration = timestamp - this.timestamp;
