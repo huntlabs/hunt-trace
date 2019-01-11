@@ -144,3 +144,23 @@ void test2()
 
 }
 
+void test3()
+{
+    import zipkin.imf.client;
+    auto TRACEID = LID;
+
+    auto span1 = new Span();
+    span1.start();
+    span1.traceId = TRACEID;
+    span1.id = ID;
+    span1.name = "test1";
+    span1.kind = KindOfClient;
+    span1.finish();
+    logInfo(TRACEID);
+    initIMF("127.0.0.1" , 3004);
+    Thread.sleep(dur!"seconds"(1));
+    uploadFromIMF(span1);
+    
+
+}
+
