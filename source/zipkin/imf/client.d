@@ -14,7 +14,7 @@ __gshared Context g_context = null;
 __gshared Application g_app = null;
 
 import hunt.logging;
-import hunt.util.serialize;
+import hunt.util.Serialize;
 
 void initIMF(string host, ushort port)
 {

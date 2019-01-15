@@ -4,7 +4,7 @@ import zipkin.endpoint;
 import zipkin.annotation;
 import zipkin.utils;
 import std.json;
-import hunt.util.serialize;
+import hunt.util.Serialize;
 
 
 
