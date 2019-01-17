@@ -44,7 +44,7 @@ bool b3Get(string url  , string[string] in_headers ,  out string[string] out_hea
     tags[HTTP_PATH] = path;
     tags[HTTP_REQUEST_SIZE] = "0";
     tags[HTTP_METHOD] = "GET";
-    auto span = AOPCommonBefore(path);
+    auto span = traceSpanBefore(path);
     if(span !is null)
         in_headers["b3"] = span.traceId ~ "-" ~ span.parentId ~ "-" ~ "1" ~ "-" ~ span.id;
 
@@ -65,7 +65,7 @@ bool b3Get(string url  , string[string] in_headers ,  out string[string] out_hea
     tags[HTTP_STATUS_CODE] = to!string(http.statusLine.code);
     tags[HTTP_RESPONSE_SIZE] = to!string(result.length);
 
-    AOPCommonAfter(span , tags , error);
+    traceSpanAfter(span , tags , error);
 
     return flag;
 }
@@ -112,7 +112,7 @@ out string[string] out_headers ,
     tags[HTTP_PATH] = path;
     tags[HTTP_REQUEST_SIZE] = to!string(text.length);
     tags[HTTP_METHOD] = "POST";
-    auto span = AOPCommonBefore(path);
+    auto span = traceSpanBefore(path);
     if(span !is null)
         in_headers["b3"] = span.traceId ~ "-" ~ span.parentId ~ "-" ~ "1" ~ "-" ~ span.id;
    
@@ -137,7 +137,7 @@ out string[string] out_headers ,
     tags[HTTP_RESPONSE_SIZE] = to!string(result.length);
 
 
-    AOPCommonAfter(span , tags , error);
+    traceSpanAfter(span , tags , error);
 
     return flag;
 }

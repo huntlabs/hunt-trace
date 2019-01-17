@@ -13,7 +13,7 @@ import hunt.trace.constrants;
 ///     2 如果是http 请求  https://github.com/openhunt.trace/b3-propagation
 ///         请求的时候传入头 in_headers["b3"] = span.traceId ~ "-" ~ span.parentId ~ "-" ~ "1" ~ "-" ~ span.id;
  
-Span AOPCommonBefore(string spanName)
+Span traceSpanBefore(string spanName)
 {
     import std.conv;
     import std.string;
@@ -34,7 +34,7 @@ Span AOPCommonBefore(string spanName)
 ///
 ///
 
-void AOPCommonAfter(Span span , string[string] tags , string error = "")
+void traceSpanAfter(Span span , string[string] tags , string error = "")
 {
     if(span !is null)
     {  
