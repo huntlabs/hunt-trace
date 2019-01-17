@@ -1,5 +1,5 @@
 {
-    "name": "zipkin",
+    "name": "hunt-trace",
     "description": "zipkin core lib for dlang",
     "copyright": "Copyright (c) 2017-2018, huntframework.com",
     "homepage": "http://www.huntframework.com/",

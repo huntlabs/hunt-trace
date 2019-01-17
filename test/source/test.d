@@ -1,5 +1,5 @@
 module test.test;
-import zipkin;
+import hunt.trace;
 import core.thread;
 import hunt.logging;
 
@@ -112,7 +112,7 @@ void test2()
     span1.kind = KindOfClient;
     span1.start();
     auto local = new EndPoint();
-    local.serviceName = "clientrequest";
+    local.serviceName = "client";
     span1.localEndpoint = local;
 
     string[string] in_header;
@@ -125,7 +125,7 @@ void test2()
     span2.kind = KindOfServer;
 
     local = new EndPoint();
-    local.serviceName = "serverresponse";
+    local.serviceName = "client2";
     span2.localEndpoint = local;
    
     Thread.sleep(dur!"msecs"(500));
@@ -146,7 +146,7 @@ void test2()
 
 void test3()
 {
-    import zipkin.imf.client;
+    import hunt.trace.imf.client;
     auto TRACEID = LID;
 
     auto span1 = new Span();
