@@ -1,7 +1,7 @@
-module hunt.trace.plugin;
-import hunt.trace.span;
-import hunt.trace.trace;
-import hunt.trace.constrants;
+module hunt.trace.Plugin;
+import hunt.trace.Span;
+import hunt.trace.Tracer;
+import hunt.trace.Constrants;
 
 ///
 ///     1 spanName为该条操作名称 
@@ -17,10 +17,10 @@ Span traceSpanBefore(string spanName)
 {
     import std.conv;
     import std.string;
-    auto trace = getTrace();
-    if( trace !is null)
+    auto tracer = getTracer();
+    if( tracer !is null)
     {
-        auto span = trace.addSpan(spanName);
+        auto span = tracer.addSpan(spanName);
         span.start();
         return span;
     }

@@ -1,8 +1,8 @@
-module hunt.trace.v2api.httpclient;
+module hunt.trace.v2api.HttpClient;
 import std.net.curl;
-import hunt.trace.span;
-import hunt.trace.constrants;
-import hunt.trace.plugin;
+import hunt.trace.Span;
+import hunt.trace.Constrants;
+import hunt.trace.Plugin;
 import hunt.logging;
 
 

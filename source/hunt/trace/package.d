@@ -1,15 +1,16 @@
 module hunt.trace;
 
-public import hunt.trace.utils;
-public import hunt.trace.span;
-public import hunt.trace.endpoint;
-public import hunt.trace.annotation;
-public import hunt.trace.constrants;
-public import hunt.trace.v2api.upload;
-public import hunt.trace.imf.client;
-public import hunt.trace.trace;
-public import hunt.trace.v2api.httpclient;
-public import hunt.trace.plugin;
+public import hunt.trace.Utils;
+public import hunt.trace.Span;
+public import hunt.trace.Endpoint;
+public import hunt.trace.Annotation;
+public import hunt.trace.Constrants;
+public import hunt.trace.v2api.Upload;
+public import hunt.trace.v2api.HttpClient;
+public import hunt.trace.imf.Client;
+public import hunt.trace.Tracer;
+
+public import hunt.trace.Plugin;
 
 
 

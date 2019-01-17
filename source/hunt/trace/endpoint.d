@@ -1,4 +1,4 @@
-module hunt.trace.endpoint;
+module hunt.trace.Endpoint;
 
 class EndPoint
 {

@@ -1,14 +1,14 @@
-module hunt.trace.imf.client;
+module hunt.trace.imf.Client;
 
 import hunt.imf;
-import hunt.trace.endpoint;
-import hunt.trace.annotation;
-import hunt.trace.span;
-import hunt.trace.constrants;
+import hunt.trace.Endpoint;
+import hunt.trace.Annotation;
+import hunt.trace.Span;
+import hunt.trace.Constrants;
 import zipkin.proto3.zipkin;
 
 alias PSpan = zipkin.proto3.zipkin.Span;
-alias CSpan = hunt.trace.span.Span;
+alias CSpan = hunt.trace.Span.Span;
 
 __gshared Context g_context = null;
 __gshared Application g_app = null;
@@ -116,9 +116,9 @@ CSpan toCSpan(PSpan pspan)
     cspan.debug_ = pspan.debug_;
     cspan.shared_ = pspan.shared_;
     
-    cspan.localEndpoint =  toOBJ!(hunt.trace.endpoint.EndPoint)(toJSON(pspan.localEndpoint));
-    cspan.remoteEndpoint = toOBJ!(hunt.trace.endpoint.EndPoint)(toJSON(pspan.remoteEndpoint));
-    cspan.annotations = toOBJ!(hunt.trace.annotation.Annotation[])(toJSON(pspan.annotations));
+    cspan.localEndpoint =  toOBJ!(hunt.trace.Endpoint.EndPoint)(toJSON(pspan.localEndpoint));
+    cspan.remoteEndpoint = toOBJ!(hunt.trace.Endpoint.EndPoint)(toJSON(pspan.remoteEndpoint));
+    cspan.annotations = toOBJ!(hunt.trace.Annotation.Annotation[])(toJSON(pspan.annotations));
     cspan.tags = pspan.tags;
 
     return cspan;

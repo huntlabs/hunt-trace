@@ -1,8 +1,8 @@
-module hunt.trace.span;
+module hunt.trace.Span;
 
-import hunt.trace.endpoint;
-import hunt.trace.annotation;
-import hunt.trace.utils;
+import hunt.trace.Endpoint;
+import hunt.trace.Annotation;
+import hunt.trace.Utils;
 import std.json;
 import hunt.util.Serialize;
 

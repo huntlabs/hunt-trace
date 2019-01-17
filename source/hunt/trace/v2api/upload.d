@@ -1,6 +1,6 @@
-module hunt.trace.v2api.upload;
-import hunt.trace.span;
-import hunt.trace.v2api.httpclient;
+module hunt.trace.v2api.Upload;
+import hunt.trace.Span;
+import hunt.trace.v2api.HttpClient;
 import hunt.logging;
 
 bool upload(string host , Span[] spans...)

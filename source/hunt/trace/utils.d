@@ -1,4 +1,4 @@
-module hunt.trace.utils;
+module hunt.trace.Utils;
 
 import core.stdc.time;
 import std.datetime;

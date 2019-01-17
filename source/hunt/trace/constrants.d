@@ -1,4 +1,4 @@
-module hunt.trace.constrants;
+module hunt.trace.Constrants;
 
 /// kind
 enum KindOfClient = "CLIENT";

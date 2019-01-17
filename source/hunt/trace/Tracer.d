@@ -1,25 +1,25 @@
-module hunt.trace.trace;
+module hunt.trace.Tracer;
 
-import hunt.trace.endpoint;
-import hunt.trace.span;
-import hunt.trace.utils;
-import hunt.trace.constrants;
+import hunt.trace.Endpoint;
+import hunt.trace.Span;
+import hunt.trace.Utils;
+import hunt.trace.Constrants;
 
 import std.string;
 
-private static Trace g_trace;
+private static Tracer g_tracer;
 
-Trace getTrace()
+Tracer getTracer()
 {
-    return g_trace;
+    return g_tracer;
 }
 
-void setTrace(Trace trace)
+void setTracer(Tracer tracer)
 {
-    g_trace = trace;
+    g_tracer = tracer;
 }
 
-class Trace
+class Tracer
 {   
     __gshared EndPoint localEndpoint;
     __gshared bool upload;
