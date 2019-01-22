@@ -19,11 +19,20 @@ import hunt.util.Serialize;
 void initIMF(string host, ushort port)
 {
     g_app = new Application(); 
-    auto client = g_app.createClient(host , port);
+    auto client = g_app.createClientExt(host , port);
     client.setOpenHandler((Context context){
         g_context = context;
     });
-    g_app.run();
+    client.setCloseHandler((Context context){
+        g_context = null;
+    });
+    try{
+        g_app.run();
+    }
+    catch(Throwable e)
+    {
+        logError(e.msg);
+    }
 }
 
 
