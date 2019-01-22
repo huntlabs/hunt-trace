@@ -33,6 +33,10 @@ class Span
     Annotation[] annotations;
     string[string]  tags;
 
+    string defaultId() {
+        return traceId ~ "-" ~ parentId ~ "-" ~ "1" ~ "-" ~ id;
+    }
+
     void addTag(string key , string value)
     {
         tags[key] = value;
