@@ -6,15 +6,31 @@ import hunt.trace.Annotation;
 import hunt.trace.Span;
 import hunt.trace.Constrants;
 import zipkin.proto3.zipkin;
+import hunt.event.timer;
+import hunt.util.Timer;
+import hunt.net;
 
 alias PSpan = zipkin.proto3.zipkin.Span;
 alias CSpan = hunt.trace.Span.Span;
 
 __gshared Context g_context = null;
 __gshared Application g_app = null;
+__gshared Timer g_timer = null; 
 
 import hunt.logging;
 import hunt.util.Serialize;
+import core.time;
+
+
+class SpanController
+{
+    mixin MakeRouter;
+
+    @route(1)
+    void onHeart() {}
+}
+
+
 
 void initIMF(string host, ushort port)
 {
@@ -22,9 +38,23 @@ void initIMF(string host, ushort port)
     auto client = g_app.createClientExt(host , port);
     client.setOpenHandler((Context context){
         g_context = context;
+        g_timer = new Timer(NetUtil.defaultEventLoopGroup.nextLoop , 25.seconds);
+        g_timer.onTick((Object sender){
+            if(g_context !is null)
+            {
+                g_context.sendMessage(1);
+            }
+        });
+        g_timer.start();
+
     });
     client.setCloseHandler((Context context){
         g_context = null;
+        if( g_timer !is null)
+        {
+            g_timer.stop();
+            g_timer = null;
+        }
     });
     try{
         g_app.run();
