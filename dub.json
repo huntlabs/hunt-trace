@@ -6,7 +6,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "hunt":"~>1.0.0",
-        "hunt-imf":"~>0.0.1"
+        "hunt-imf":"~>0.0.3"
     }
 
 }
