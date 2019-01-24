@@ -1,4 +1,4 @@
-module hunt.trace.imf.Client;
+module hunt.trace.Client;
 
 import hunt.imf;
 import hunt.trace.Endpoint;
@@ -30,6 +30,10 @@ class SpanController
     void onHeart() {}
 }
 
+@property bool tracing()
+{
+    return g_context !is null;
+}
 
 
 void initIMF(string host, ushort port)
@@ -73,11 +77,8 @@ void uploadFromIMF(CSpan[] spans ...)
     {
         pspans.spans ~= toPSpan(s);
     }
-    if(g_context is null)
-    {
-        logError("disconnected imf ");
-    }
-    else   
+    
+    if(g_context !is null)   
     {
         g_context.sendMessage(0 , pspans);
     }
