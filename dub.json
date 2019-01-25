@@ -1,12 +1,11 @@
 {
     "name": "hunt-trace",
-    "description": "zipkin core lib for dlang",
-    "copyright": "Copyright (c) 2017-2018, huntframework.com",
-    "homepage": "http://www.huntframework.com/",
+    "description": "zipkin core lib for hunt",
+    "copyright": "Copyright (c) 2017-2018, HuntLabs",
+    "homepage": "http://www.huntlabs.net",
     "license": "Apache-2.0",
     "dependencies": {
-        "hunt":"~>1.0.0",
+        "hunt":"~>1.1.0",
         "hunt-imf":"~>0.0.3"
     }
-
 }
