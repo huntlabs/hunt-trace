@@ -71,7 +71,7 @@ class Span
 
     override string toString()
     {
-        auto json = toJSON(this);       
+        auto json = toJson(this);       
         json["debug"] = (debug_);
         json["shared"] = (shared_);
         if(parentId.length != 0)

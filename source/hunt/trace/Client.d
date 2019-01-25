@@ -116,9 +116,9 @@ PSpan toPSpan(CSpan cspan)
     pspan.debug_ = cspan.debug_;
     pspan.shared_ = cspan.shared_;
     
-    pspan.localEndpoint =  toOBJ!(zipkin.proto3.zipkin.Endpoint)(toJSON(cspan.localEndpoint));
-    pspan.remoteEndpoint = toOBJ!(zipkin.proto3.zipkin.Endpoint)(toJSON(cspan.remoteEndpoint));
-    pspan.annotations = toOBJ!(zipkin.proto3.zipkin.Annotation[])(toJSON(cspan.annotations));
+    pspan.localEndpoint =  toObject!(zipkin.proto3.zipkin.Endpoint)(toJson(cspan.localEndpoint));
+    pspan.remoteEndpoint = toObject!(zipkin.proto3.zipkin.Endpoint)(toJson(cspan.remoteEndpoint));
+    pspan.annotations = toObject!(zipkin.proto3.zipkin.Annotation[])(toJson(cspan.annotations));
     pspan.tags = cspan.tags;
 
     return pspan;
@@ -156,9 +156,9 @@ CSpan toCSpan(PSpan pspan)
     cspan.debug_ = pspan.debug_;
     cspan.shared_ = pspan.shared_;
     
-    cspan.localEndpoint =  toOBJ!(hunt.trace.Endpoint.EndPoint)(toJSON(pspan.localEndpoint));
-    cspan.remoteEndpoint = toOBJ!(hunt.trace.Endpoint.EndPoint)(toJSON(pspan.remoteEndpoint));
-    cspan.annotations = toOBJ!(hunt.trace.Annotation.Annotation[])(toJSON(pspan.annotations));
+    cspan.localEndpoint =  toObject!(hunt.trace.Endpoint.EndPoint)(toJson(pspan.localEndpoint));
+    cspan.remoteEndpoint = toObject!(hunt.trace.Endpoint.EndPoint)(toJson(pspan.remoteEndpoint));
+    cspan.annotations = toObject!(hunt.trace.Annotation.Annotation[])(toJson(pspan.annotations));
     cspan.tags = pspan.tags;
 
     return cspan;
