@@ -1,9 +1,10 @@
 {
     "name": "hunt-trace",
-    "description": "zipkin core lib for hunt",
+    "description": "Zipkin protocol based tracking library for hunt.",
     "copyright": "Copyright (C) 2015-2019, HuntLabs",
     "homepage": "http://www.huntlabs.net",
     "license": "Apache-2.0",
+    "versions": ["WITH_HUNT_TRACE"],
     "dependencies": {
         "hunt-imf":"~>0.1.0"
     }
