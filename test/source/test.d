@@ -146,7 +146,7 @@ void test2()
 
 void test3()
 {
-    import hunt.trace.imf.client;
+    import hunt.trace.Client;
     auto TRACEID = LID;
 
     auto span1 = new Span();
