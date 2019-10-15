@@ -1,6 +1,5 @@
 module hunt.trace.Client;
 
-import hunt.imf;
 import hunt.trace.Endpoint;
 import hunt.trace.Annotation;
 import hunt.trace.Span;
@@ -9,26 +8,18 @@ import zipkin.proto3.zipkin;
 import hunt.event.timer;
 import hunt.util.Timer;
 import hunt.net;
+import hunt.imf.clients.GatewayTcpClient;
+import hunt.imf.protocol.protobuf.ProtobufProtocol;
 
 alias PSpan = zipkin.proto3.zipkin.Span;
 alias CSpan = hunt.trace.Span.Span;
 
-__gshared Context g_context = null;
-__gshared Application g_app = null;
-__gshared Timer g_timer = null; 
+__gshared GatewayTcpClient g_context = null;
+__gshared Timer g_timer = null;
 
 import hunt.logging;
 import hunt.util.Serialize;
 import core.time;
-
-
-class SpanController
-{
-    mixin MakeRouter;
-
-    @route(1)
-    void onHeart() {}
-}
 
 @property bool tracing()
 {
@@ -38,35 +29,9 @@ class SpanController
 
 void initIMF(string host, ushort port)
 {
-    g_app = new Application(); 
-    auto client = g_app.createClientExt(host , port);
-    client.setOpenHandler((Context context){
-        g_context = context;
-        g_timer = new Timer(NetUtil.defaultEventLoopGroup.nextLoop , 25.seconds);
-        g_timer.onTick((Object sender){
-            if(g_context !is null)
-            {
-                g_context.sendMessage(1);
-            }
-        });
-        g_timer.start();
-
-    });
-    client.setCloseHandler((Context context){
-        g_context = null;
-        if( g_timer !is null)
-        {
-            g_timer.stop();
-            g_timer = null;
-        }
-    });
-    try{
-        g_app.run();
-    }
-    catch(Throwable e)
-    {
-        logError(e.msg);
-    }
+    ProtobufProtocol tcp = new ProtobufProtocol(host,port);
+    g_context = new GatewayTcpClient(tcp);
+    g_context.connect();
 }
 
 
@@ -80,7 +45,7 @@ void uploadFromIMF(CSpan[] spans ...)
     
     if(g_context !is null)   
     {
-        g_context.sendMessage(0 , pspans);
+        g_context.sendMsg(0 , pspans);
     }
 }
 

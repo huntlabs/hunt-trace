@@ -6,6 +6,6 @@
     "license": "Apache-2.0",
     "versions": ["WITH_HUNT_TRACE"],
     "dependencies": {
-        "hunt-imf":"~>0.1.0"
+        "hunt-imf": "~>0.2.0-beta.1"
     }
 }

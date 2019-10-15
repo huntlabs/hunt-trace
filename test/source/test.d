@@ -160,7 +160,5 @@ void test3()
     initIMF("127.0.0.1" , 3004);
     Thread.sleep(dur!"seconds"(1));
     uploadFromIMF(span1);
-    
-
 }
 
